@@ -34,27 +34,43 @@ public class DatabaseManager extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-//    public void insert(Task task) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        String sqlInsert = "insert into " + TABLE + " values( null, '" + task.getTitle() + "', '" + task.getDate() + "' , '" + task.getTime() + "' )";
-//
-//        db.execSQL(sqlInsert);
-//        db.close();
-//    }
-//
-//    public void deleteById(String id) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        String sqlDelete = "delete from " + TABLE + " where " + ID + " = " + id;
-//        db.execSQL(sqlDelete);
-//        db.close();
-//    }
-//
-//    public void updateById(Task task) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        String sqlUpdate = "update " + TABLE + " set " + USERNAME + " = '" + task.getTitle() + "', " + EMAIL + " = '" + task.getDate() + "', " + PASSWORD + " = '" + task.getTime() + "'" + " where " + ID + " = " + "'" + task.getId() + "'";
-//        db.execSQL(sqlUpdate);
-//        db.close();
-//    }
+    public void insertUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sqlInsert = "insert into " + TABLE + " values( null, '" + user.getUsername() + "', '" + user.getEmail() + "' , '" + user.getPassword() + "' , '" + user.getConnectHS() + "' , '" + user.getMemoryHS() + "', '" + user.getBlackjackHS() + "' )";
+        db.execSQL(sqlInsert);
+        db.close();
+    }
+
+
+    public void deleteByUsername(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sqlDelete = "delete from " + TABLE + " where " + USERNAME + " = " + username;
+        db.execSQL(sqlDelete);
+        db.close();
+    }
+
+    public void updateHS(User user, String game) {
+        String sqlUpdate = "update " + TABLE + " set ";
+
+        if (game.equalsIgnoreCase("connect four")) {
+            sqlUpdate = CONNECTHS + " = '" + user.getConnectHS() + "'";
+        } else if (game.equalsIgnoreCase("memory game")) {
+            sqlUpdate = MEMORYHS + " = '" + user.getMemoryHS() + "'";
+        } else if (game.equalsIgnoreCase("black jack")) {
+            sqlUpdate = BLACKJACKHS + " = '" + user.getBlackjackHS() + "'";
+        }
+        SQLiteDatabase db = this.getWritableDatabase();
+        sqlUpdate = " where " + USERNAME + " = '" + user.getUsername() + "'";
+        db.execSQL(sqlUpdate);
+        db.close();
+    }
+
+    public void updateByUsername(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sqlUpdate = "update " + TABLE + " set " + USERNAME + " = '" + user.getUsername() + "', " + EMAIL + " = '" + user.getEmail() + "', " + PASSWORD + " = '" + user.getPassword() + "'" + "', " + CONNECTHS + " = '" + user.getConnectHS() + "', " + MEMORYHS + " = '" + user.getMemoryHS() + "', " + BLACKJACKHS + " = '" + user.getBlackjackHS() + "' where " + USERNAME + " = " + "'" + user.getUsername() + "'";
+        db.execSQL(sqlUpdate);
+        db.close();
+    }
 
 
     public User selectByUsername(String username) {

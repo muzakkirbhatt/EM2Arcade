@@ -29,7 +29,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void register(View view){
-        Intent registerIntent = new Intent(this, LoginActivity.class);
+        Intent registerIntent = new Intent(this, GameSelectActivity.class);
         startActivity(registerIntent);
     }
 

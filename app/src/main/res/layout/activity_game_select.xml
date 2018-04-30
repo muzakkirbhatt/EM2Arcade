@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:padding="50dp"
+    tools:context="com.example.mbhatt1.em2arcade.StartActivity">
+
+
+    <ImageButton
+        android:id="@+id/memoryGame"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/blackjackGame"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/mm" />
+
+    <ImageButton
+        android:id="@+id/blackjackGame"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/gameTitle"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/bj" />
+
+    <ImageButton
+        android:id="@+id/C4Game"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/MMRadio"
+        android:layout_marginTop="43dp"
+        android:background="@drawable/c4" />
+
+    <RadioButton
+        android:id="@+id/BJRadio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/blackjackGame"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
+
+    <RadioButton
+        android:id="@+id/C4Radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/C4Game"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
+
+    <RadioButton
+        android:id="@+id/MMRadio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/memoryGame"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:id="@+id/gameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="51dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="29dp"
+        android:text="Game Select"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/leaderboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/gameTitle"
+        android:layout_alignBottom="@+id/gameTitle"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="Leaderboard"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:textSize="15dp" />
+</RelativeLayout>
