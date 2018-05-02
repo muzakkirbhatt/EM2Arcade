@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EM<sup>2</sup> Arcade</string>
+    <string name="app_name">EM<font size="25"><sup>2</sup></font> Arcade</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->

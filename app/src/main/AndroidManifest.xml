@@ -27,6 +27,7 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"></activity>
         <activity android:name=".GameSelectActivity"></activity>
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>

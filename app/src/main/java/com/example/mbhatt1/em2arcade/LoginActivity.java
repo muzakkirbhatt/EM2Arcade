@@ -345,6 +345,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+
+        EditText et = findViewById(R.id.email);
+        String text = et.getText().toString();
     }
 }
-
