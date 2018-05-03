@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
-        android:paddingTop="56dp">
+        android:paddingTop="25dp">
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -86,9 +86,9 @@
             android:id="@+id/registerBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="15dp"
             android:onClick="attemptRegister"
-            android:layout_marginTop="24dp"
             android:padding="12dp"
             android:text="Create Account" />
 
@@ -96,10 +96,18 @@
             android:id="@+id/link_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
+            android:onClick="goLogin"
             android:text="Already a member? Login"
             android:textSize="16dip" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="goBack"
+            android:text="Go Back" />
 
     </LinearLayout>
 </ScrollView>

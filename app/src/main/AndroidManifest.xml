@@ -25,9 +25,17 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
-        <activity android:name=".GameSelectActivity"></activity>
-        <activity android:name=".RegisterActivity"></activity>
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".GameSelectActivity"
+            android:label="Game Select" />
+        <activity
+            android:name=".RegisterActivity"
+            android:label="Register" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

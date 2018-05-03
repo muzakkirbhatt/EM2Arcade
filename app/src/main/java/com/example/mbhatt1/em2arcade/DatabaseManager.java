@@ -25,7 +25,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         // build sql create statement
-        String sqlCreate = "create table " + TABLE + "( " + ID + " integer primary key autoincrement, " + USERNAME + " text unique, " + EMAIL + " text unique," + PASSWORD + " text," + CONNECTHS + " text," + MEMORYHS + " text," + BLACKJACKHS + " text )";
+        String sqlCreate = "CREATE TABLE " + TABLE + "( " + ID + " integer primary key autoincrement, " + USERNAME + " text unique, " + EMAIL + " text unique," + PASSWORD + " text," + CONNECTHS + " text," + MEMORYHS + " text," + BLACKJACKHS + " text )";
         db.execSQL(sqlCreate);
     }
 
@@ -36,23 +36,18 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public boolean findUsername(String username, String type) {
         boolean toReturn = false;
-        String sqlQuery = "select * from " + TABLE;
+        String sqlQuery = "";
         if (type.equalsIgnoreCase("username")) {
-            sqlQuery = "select " + USERNAME + " from " + TABLE;
+            sqlQuery = "SELECT " + USERNAME + " FROM " + TABLE;
         } else if (type.equalsIgnoreCase("email")) {
-            sqlQuery = "select " + EMAIL + " from " + TABLE;
+            sqlQuery = "SELECT " + EMAIL + " FROM " + TABLE;
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sqlQuery, null);
 
         while (cursor.moveToNext()) {
-            String text = "";
-            if (type.equalsIgnoreCase("username")) {
-                text = cursor.getString(0);
-            } else if (type.equalsIgnoreCase("email")) {
-                text = cursor.getString(0);
-            }
+            String text = cursor.getString(0);
             if (username.equalsIgnoreCase(text)) {
                 toReturn = true;
             }
@@ -61,15 +56,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return toReturn;
     }
 
-    public boolean registerUser(User user) {
-        boolean test = false;
-        if (!this.findUsername(user.getUsername(), "username") && !this.findUsername(user.getEmail(), "email")) {
-            SQLiteDatabase db = this.getWritableDatabase();
-            String sqlInsert = "insert into " + TABLE + " values( null, '" + user.getUsername() + "', '" + user.getEmail() + "' , '" + user.getPassword() + "' , '" + user.getConnectHS() + "' , '" + user.getMemoryHS() + "', '" + user.getBlackjackHS() + "' )";
-            db.execSQL(sqlInsert);
-            db.close();
-            return true;
-        } else return false;
+    public void registerUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sqlInsert = "INSERT INTO " + TABLE + " VALUES( null, '" + user.getUsername() + "', '" + user.getEmail() + "' , '" + user.getPassword() + "' , '" + user.getConnectHS() + "' , '" + user.getMemoryHS() + "', '" + user.getBlackjackHS() + "' )";
+        db.execSQL(sqlInsert);
+        db.close();
     }
 
     public User loginUser(String username, String password, String type) {
@@ -77,10 +68,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
             String sqlQuery = "";
             if (type.equalsIgnoreCase("username")) {
-                sqlQuery = "select * from " + TABLE + " where " + USERNAME + " = '" + username + "'";
+                sqlQuery = "SELECT * FROM " + TABLE + " WHERE " + USERNAME + " = '" + username + "'";
             }
             if (type.equalsIgnoreCase("email")) {
-                sqlQuery = "select * from " + TABLE + " where " + EMAIL + " = '" + username + "'";
+                sqlQuery = "SELECT * FROM " + TABLE + " WHERE " + EMAIL + " = '" + username + "'";
             }
             SQLiteDatabase db = this.getWritableDatabase();
             Cursor cursor = db.rawQuery(sqlQuery, null);
@@ -97,13 +88,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void deleteByUsername(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sqlDelete = "delete from " + TABLE + " where " + USERNAME + " = '" + username + "'";
+        String sqlDelete = "DELETE FROM " + TABLE + " WHERE " + USERNAME + " = '" + username + "'";
         db.execSQL(sqlDelete);
         db.close();
     }
 
     public void updateHS(User user, String game) {
-        String sqlUpdate = "update " + TABLE + " set ";
+        String sqlUpdate = "UPDATE " + TABLE + " SET ";
 
         if (game.equalsIgnoreCase("connect four")) {
             sqlUpdate = CONNECTHS + " = '" + user.getConnectHS() + "'";
@@ -113,14 +104,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
             sqlUpdate = BLACKJACKHS + " = '" + user.getBlackjackHS() + "'";
         }
         SQLiteDatabase db = this.getWritableDatabase();
-        sqlUpdate = " where " + USERNAME + " = '" + user.getUsername() + "'";
+        sqlUpdate = " WHERE " + USERNAME + " = '" + user.getUsername() + "'";
         db.execSQL(sqlUpdate);
         db.close();
     }
 
     public void updateByUsername(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sqlUpdate = "update " + TABLE + " set " + USERNAME + " = '" + user.getUsername() + "', " + EMAIL + " = '" + user.getEmail() + "', " + PASSWORD + " = '" + user.getPassword() + "'" + "', " + CONNECTHS + " = '" + user.getConnectHS() + "', " + MEMORYHS + " = '" + user.getMemoryHS() + "', " + BLACKJACKHS + " = '" + user.getBlackjackHS() + "' where " + USERNAME + " = " + "'" + user.getUsername() + "'";
+        String sqlUpdate = "UPDATE " + TABLE + " SET " + USERNAME + " = '" + user.getUsername() + "', " + EMAIL + " = '" + user.getEmail() + "', " + PASSWORD + " = '" + user.getPassword() + "'" + "', " + CONNECTHS + " = '" + user.getConnectHS() + "', " + MEMORYHS + " = '" + user.getMemoryHS() + "', " + BLACKJACKHS + " = '" + user.getBlackjackHS() + "' where " + USERNAME + " = " + "'" + user.getUsername() + "'";
         db.execSQL(sqlUpdate);
         db.close();
     }
@@ -133,7 +124,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         User user = null;
         if (cursor.moveToFirst())
-            user = new User(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
+            user = new User(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
         return user;
     }
 
@@ -145,7 +136,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         ArrayList<User> users = new ArrayList<>();
         while (cursor.moveToNext()) {
-            User user = new User(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
+            User user = new User(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
             users.add(user);
         }
         db.close();

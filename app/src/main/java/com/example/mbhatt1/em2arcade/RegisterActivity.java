@@ -88,6 +88,10 @@ public class RegisterActivity extends AppCompatActivity {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
             cancel = true;
+        } else if (db.findUsername(username, "username")) {
+            mUsernameView.setError("Username is not available");
+            focusView = mUsernameView;
+            cancel = true;
         }
 
         if (TextUtils.isEmpty(email)) {
@@ -98,25 +102,32 @@ public class RegisterActivity extends AppCompatActivity {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
+        } else if (db.findUsername(email, "email")) {
+            mEmailView.setError("Account with this email already exists");
+            focusView = mEmailView;
+            cancel = true;
         }
-
         if (cancel) {
             focusView.requestFocus();
         } else {
 //            showProgress(true);
             User user = new User(username, email, password, "0", "0", "0");
-            boolean test = db.registerUser(user);
-            if (test) {
-//                showProgress(false);
-                Toast.makeText(this, "Registration was successful\n Please login to continue", Toast.LENGTH_LONG).show();
-                Intent loginIntent = new Intent(this, LoginActivity.class);
-                startActivity(loginIntent);
-            } else {
-                Toast.makeText(this, "Registration not successful\n Please check your info", Toast.LENGTH_LONG).show();
-//                showProgress(false);
-            }
+            db.registerUser(user);
+
+            Toast.makeText(this, "Registration was successful\n Please login to continue", Toast.LENGTH_LONG).show();
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            startActivity(loginIntent);
         }
 
+    }
+
+    public void goBack(View view){
+        this.finish();
+    }
+
+    public void goLogin(View view){
+        Intent login = new Intent(this, LoginActivity.class);
+        startActivity(login);
     }
 
     private boolean isEmailValid(String email) {

@@ -10,16 +10,6 @@
 
 
     <ImageButton
-        android:id="@+id/memoryGame"
-        android:layout_width="200dp"
-        android:layout_height="75dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/blackjackGame"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/mm" />
-
-    <ImageButton
         android:id="@+id/blackjackGame"
         android:layout_width="200dp"
         android:layout_height="75dp"
@@ -30,38 +20,65 @@
         android:background="@drawable/bj" />
 
     <ImageButton
+        android:id="@+id/memoryGame"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/blackjackGame"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/mm" />
+
+    <ImageButton
         android:id="@+id/C4Game"
         android:layout_width="200dp"
         android:layout_height="75dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/MMRadio"
+        android:layout_below="@+id/memoryGame"
         android:layout_marginTop="43dp"
         android:background="@drawable/c4" />
 
-    <RadioButton
-        android:id="@+id/BJRadio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/blackjackGame"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
-
-    <RadioButton
-        android:id="@+id/C4Radio"
+    <RadioGroup
+        android:id="@+id/gameRadio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/C4Game"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignTop="@+id/blackjackGame"
+        android:layout_marginLeft="50dp"
+        android:layout_toRightOf="@+id/blackjackGame">
 
-    <RadioButton
-        android:id="@+id/MMRadio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/memoryGame"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
+        <RadioButton
+            android:id="@+id/BJRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/blackjackGame"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/blackjackGame"
+            android:layout_marginBottom="100dp"
+            android:layout_marginTop="20dp" />
+
+        <RadioButton
+            android:id="@+id/MMRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/memoryGame"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/memoryGame"
+            android:layout_marginBottom="100dp" />
+
+        <RadioButton
+            android:id="@+id/C4Radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/C4Game"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/C4Game" />
+
+    </RadioGroup>
 
     <TextView
         android:id="@+id/gameTitle"
@@ -75,8 +92,8 @@
         android:layout_marginTop="29dp"
         android:text="Game Select"
         android:textColor="#fff"
-        android:textStyle="bold"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/leaderboard"
@@ -88,6 +105,6 @@
         android:layout_alignParentRight="true"
         android:text="Leaderboard"
         android:textColor="#fff"
-        android:textStyle="bold"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:textStyle="bold" />
 </RelativeLayout>
