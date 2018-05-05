@@ -36,6 +36,16 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".ConnectActivity"
+            android:label="Connect 4" />
+        <activity
+            android:name=".MemoryActivity"
+            android:label="Memory Game" />
+        <activity
+            android:name=".BlackJackActivity"
+            android:label="Black Jack (21)"></activity>
     </application>
 
 </manifest>

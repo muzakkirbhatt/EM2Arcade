@@ -96,15 +96,15 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void updateHS(User user, String game) {
         String sqlUpdate = "UPDATE " + TABLE + " SET ";
 
-        if (game.equalsIgnoreCase("connect four")) {
-            sqlUpdate = CONNECTHS + " = '" + user.getConnectHS() + "'";
-        } else if (game.equalsIgnoreCase("memory game")) {
-            sqlUpdate = MEMORYHS + " = '" + user.getMemoryHS() + "'";
-        } else if (game.equalsIgnoreCase("black jack")) {
-            sqlUpdate = BLACKJACKHS + " = '" + user.getBlackjackHS() + "'";
+        if (game.equalsIgnoreCase("connectFour")) {
+            sqlUpdate = sqlUpdate + CONNECTHS + " = '" + user.getConnectHS() + "'";
+        } else if (game.equalsIgnoreCase("memoryGame")) {
+            sqlUpdate = sqlUpdate + MEMORYHS + " = '" + user.getMemoryHS() + "'";
+        } else if (game.equalsIgnoreCase("blackJack")) {
+            sqlUpdate = sqlUpdate + BLACKJACKHS + " = '" + user.getBlackjackHS() + "'";
         }
         SQLiteDatabase db = this.getWritableDatabase();
-        sqlUpdate = " WHERE " + USERNAME + " = '" + user.getUsername() + "'";
+        sqlUpdate = sqlUpdate + " WHERE " + USERNAME + " = '" + user.getUsername() + "'";
         db.execSQL(sqlUpdate);
         db.close();
     }
