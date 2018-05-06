@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -204,7 +205,13 @@ public class BlackJackActivity extends AppCompatActivity
             showGameDialog("dealer");
 
         } else {
-            dealerCard2.setImageResource(R.drawable.backcardblue);
+
+            int num = (int) (Math.random() * 100);
+            if ((num % 2) == 0) {
+                dealerCard2.setImageResource(R.drawable.backcardred);
+            } else {
+                dealerCard2.setImageResource(R.drawable.backcardblue);
+            }
         }
         cardNum++;
 

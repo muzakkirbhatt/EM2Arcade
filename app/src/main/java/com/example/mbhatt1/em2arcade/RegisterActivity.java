@@ -3,45 +3,18 @@ package com.example.mbhatt1.em2arcade;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 public class RegisterActivity extends AppCompatActivity {
-
-    private static final int REQUEST_READ_CONTACTS = 0;
-
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-
 
     // UI references.
     private EditText mPasswordView, mPasswordView2, mUsernameView, mEmailView;
@@ -57,9 +30,9 @@ public class RegisterActivity extends AppCompatActivity {
         // Set up the login form.
         mEmailView = findViewById(R.id.email);
         mUsernameView = findViewById(R.id.username);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView2 = (EditText) findViewById(R.id.password2);
-        Button mEmailSignInButton = (Button) findViewById(R.id.registerBtn);
+        mPasswordView = findViewById(R.id.password);
+        mPasswordView2 = findViewById(R.id.password2);
+        Button mEmailSignInButton = findViewById(R.id.registerBtn);
 
         mLoginFormView = findViewById(R.id.register_form);
         mProgressView = findViewById(R.id.progressBar);
@@ -70,17 +43,25 @@ public class RegisterActivity extends AppCompatActivity {
 
         mEmailView.setError(null);
         mPasswordView.setError(null);
+        mPasswordView2.setError(null);
 
         String username = mUsernameView.getText().toString();
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String password2 = mPasswordView2.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError("Password does not match format");
             focusView = mPasswordView;
+            cancel = true;
+        }
+
+        if (!password2.equalsIgnoreCase(password)) {
+            mPasswordView2.setError("Does not match entered password");
+            focusView = mPasswordView2;
             cancel = true;
         }
 
@@ -114,30 +95,88 @@ public class RegisterActivity extends AppCompatActivity {
             User user = new User(username, email, password, "0", "0", "0");
             db.registerUser(user);
 
-            Toast.makeText(this, "Registration was successful\n Please login to continue", Toast.LENGTH_LONG).show();
+            Snackbar.make(this.mPasswordView, "Registration was successful. Please login to continue", Snackbar.LENGTH_LONG).show();
             Intent loginIntent = new Intent(this, LoginActivity.class);
+            finish();
             startActivity(loginIntent);
         }
 
     }
 
-    public void goBack(View view){
+    public void goBack(View view) {
         this.finish();
     }
 
-    public void goLogin(View view){
+    public void goLogin(View view) {
         Intent login = new Intent(this, LoginActivity.class);
+        finish();
         startActivity(login);
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+        boolean hasAt = false;
+        boolean hasDot = false;
+
+        for (int i = 0; i < email.length(); i++) {
+            char c = email.charAt(i);
+
+            if (c == '@' && !hasDot) {
+                hasAt = true;
+            }
+
+            if (c == '.' && hasAt) {
+                hasDot = true;
+            }
+        }
+
+        if (hasAt && hasDot) {
+            return true;
+        } else return false;
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+        boolean hasLowerCase = false; // a to z
+        boolean hasUpperCase = false; // A to Z
+        boolean hasNumber = false; // 0 to 9
+        boolean hasSpecial = false; // !, *, %, $, #, &, ?, ^, -, +
+
+        if (password.length() > 12) {
+            return false;
+        } else if (password.length() < 6) {
+            return false;
+        }
+
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+
+            if (Character.isLowerCase(c)) {
+                hasLowerCase = true;
+            }
+
+            if (Character.isUpperCase(c)) {
+                hasUpperCase = true;
+            }
+
+            if (Character.isDigit(c)) {
+                hasNumber = true;
+            }
+
+            if (c == '!' || c == '*' || c == '%' || c == '$' || c == '#' || c == '&' || c == '?' || c == '^' || c == '-' || c == '+') {
+                hasSpecial = true;
+            }
+        }
+
+        if (!hasLowerCase) {
+            return false;
+        } else if (!hasUpperCase) {
+            return false;
+        } else if (!hasNumber) {
+            return false;
+        } else if (!hasSpecial) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**

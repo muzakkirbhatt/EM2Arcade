@@ -39,8 +39,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="@string/prompt_email"
+                    android:hint="Username or Email"
                     android:inputType="textEmailAddress"
+                    android:maxLength="30"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -54,11 +55,12 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password"
+                    android:hint="Password"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
+                    android:maxLength="12"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -86,8 +88,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginTop="20dp"
-                android:onClick="goBack"
                 android:background="@color/colorPrimary"
+                android:onClick="goBack"
                 android:text="Back"
                 android:textColor="#fff"
                 android:textStyle="bold"
