@@ -45,7 +45,10 @@
             android:label="Memory Game" />
         <activity
             android:name=".BlackJackActivity"
-            android:label="Black Jack (21)"></activity>
+            android:label="Black Jack (21)" />
+        <activity
+            android:name=".LeaderBoardActivity"
+            android:label="LeaderBoards"></activity>
     </application>
 
 </manifest>

@@ -59,7 +59,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/blackjackGame"
             android:layout_marginBottom="100dp"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:onClick="leaderBoards" />
 
         <RadioButton
             android:id="@+id/MMRadio"
@@ -69,7 +70,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/memoryGame"
-            android:layout_marginBottom="100dp" />
+            android:layout_marginBottom="100dp"
+            android:onClick="leaderBoards" />
 
         <RadioButton
             android:id="@+id/C4Radio"
@@ -78,7 +80,8 @@
             android:layout_alignBottom="@+id/C4Game"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/C4Game" />
+            android:layout_alignTop="@+id/C4Game"
+            android:onClick="leaderBoards" />
 
     </RadioGroup>
 

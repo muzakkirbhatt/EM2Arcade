@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class GameSelectActivity extends AppCompatActivity {
@@ -44,4 +45,30 @@ public class GameSelectActivity extends AppCompatActivity {
 
         }
     }
+
+    public void leaderBoards(View v) {
+        String game = "";
+        RadioButton rb;
+        rb = findViewById(v.getId());
+        switch (v.getId()) {
+            case R.id.MMRadio: {
+                game = "memoryGame";
+                break;
+            }
+            case R.id.C4Radio: {
+                game = "connectFour";
+                break;
+            }
+            case R.id.BJRadio: {
+                game = "blackJack";
+                break;
+            }
+        }
+        Intent leaderBoard = new Intent(this, LeaderBoardActivity.class);
+        leaderBoard.putExtra("game", game);
+        rb.setChecked(false);
+        startActivity(leaderBoard);
+    }
+
+
 }
