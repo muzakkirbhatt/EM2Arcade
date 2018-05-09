@@ -29,7 +29,13 @@ public class LeaderBoardActivity extends AppCompatActivity {
         ArrayList<User> users = db.selectAll();
         if (users != null) {
             if (users.size() > 1) {
-                Collections.sort(users, (user1, user2) -> Integer.valueOf(user2.getBlackjackHS()) - Integer.valueOf(user1.getBlackjackHS()));
+                if (game.equalsIgnoreCase("connectFour")) {
+                    Collections.sort(users, (user1, user2) -> Integer.valueOf(user2.getConnectHS()) - Integer.valueOf(user1.getConnectHS()));
+                } else if (game.equalsIgnoreCase("memoryGame")) {
+                    Collections.sort(users, (user1, user2) -> Integer.valueOf(user2.getMemoryHS()) - Integer.valueOf(user1.getMemoryHS()));
+                } else if (game.equalsIgnoreCase("blackJack")) {
+                    Collections.sort(users, (user1, user2) -> Integer.valueOf(user2.getBlackjackHS()) - Integer.valueOf(user1.getBlackjackHS()));
+                }
             }
             for (int i = 0; i < users.size(); i++) {
                 TableRow tr = new TableRow(this);

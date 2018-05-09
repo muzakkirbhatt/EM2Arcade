@@ -8,9 +8,11 @@ package com.example.mbhatt1.em2arcade;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
@@ -39,6 +41,13 @@ public class GridLayoutClass extends GridLayout {
                 buttons[row][col] = new Button(context);
                 buttons[row][col].setTextSize((int) (width * .2));
                 buttons[row][col].setOnClickListener(listener);
+                GradientDrawable shape = new GradientDrawable();
+                shape.setShape(GradientDrawable.OVAL);
+                shape.setCornerRadii(new float[] {8, 8, 8, 8,0,0,0,0});
+                shape.setColor(Color.WHITE);
+                shape.setStroke(3, Color.BLACK);
+
+                buttons[row][col].setBackground(shape);
                 addView(buttons[row][col], width, width);
 
             }
@@ -86,12 +95,10 @@ public class GridLayoutClass extends GridLayout {
         }
 
         buttons[row][column].setText(text);
-
+        buttons[row][column].setTextColor(View.INVISIBLE);
         if (text.contains("X")) {
-            buttons[row][column].setTextColor(Color.RED);
             buttons[row][column].getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
         } else if (text.contains("O")) {
-            buttons[row][column].setTextColor(Color.YELLOW);
             buttons[row][column].getBackground().setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
         }
     }

@@ -1,6 +1,7 @@
 package com.example.mbhatt1.em2arcade;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
@@ -15,12 +16,18 @@ public class ConnectActivity extends AppCompatActivity {
     private ConnectFour game;
     private GridLayoutClass cfView;
     private ConnectActivity self;
+    private User player;
+    private DatabaseManager db;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         self = this;
+        db = new DatabaseManager(this);
+        SharedPreferences sp = this.getSharedPreferences("userInfo", MODE_PRIVATE);
+        String username = sp.getString("userName", null);
+        player = db.selectByUsername(username);
         game = new ConnectFour();
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
@@ -38,6 +45,8 @@ public class ConnectActivity extends AppCompatActivity {
         PlayDialog playAgain = new PlayDialog();
         alert.setPositiveButton("YES", playAgain);
         alert.setNegativeButton("NO", playAgain);
+        alert.setCancelable(false);
+        setFinishOnTouchOutside(false);
         alert.show();
     }
 
@@ -69,6 +78,11 @@ public class ConnectActivity extends AppCompatActivity {
 
     private class PlayDialog implements DialogInterface.OnClickListener {
         public void onClick(DialogInterface dialog, int id) {
+            if(game.whoWon() == 1){
+                int wins = Integer.valueOf(player.getConnectHS()) + 1;
+                player.setConnectHS(String.valueOf(wins));
+                db.updateHS(player, "connectFour");
+            }
             if (id == -1) /* YES button */ {
                 game.resetGame();
                 cfView.enableButtons(true);

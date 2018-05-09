@@ -1,6 +1,7 @@
 package com.example.mbhatt1.em2arcade;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
@@ -13,12 +14,18 @@ public class MemoryActivity extends AppCompatActivity {
     private ButtonLayout buttonLayout;
     private Memory memory;
     private MemoryActivity self;
+    private User player;
+    private DatabaseManager db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.create();
         self = this;
+        db = new DatabaseManager(this);
+        SharedPreferences sp = this.getSharedPreferences("userInfo", MODE_PRIVATE);
+        String username = sp.getString("userName", null);
+        player = db.selectByUsername(username);
         setContentView(buttonLayout);
     }
 
@@ -44,6 +51,9 @@ public class MemoryActivity extends AppCompatActivity {
                         if (memory.buttonsFlipped == 2 && win == 0) {
                             win = memory.checkWin();
                             if (win == 1) {
+                                int wins = Integer.valueOf(player.getMemoryHS()) + 1;
+                                player.setMemoryHS(String.valueOf(wins));
+                                db.updateHS(player, "memoryGame");
                                 buttonLayout.setText("  YOU WIN   ");
                                 new AlertDialog.Builder(self)
                                         .setTitle("YOU WON")

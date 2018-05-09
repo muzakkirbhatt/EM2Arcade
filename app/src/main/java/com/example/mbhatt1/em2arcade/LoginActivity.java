@@ -113,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("userName", user.getUsername());
                 editor.commit();
                 Intent gameStart = new Intent(this, GameSelectActivity.class);
+                this.finish();
                 startActivity(gameStart);
             }
         }
