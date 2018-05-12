@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +19,7 @@ public class ConnectActivity extends AppCompatActivity {
     private ConnectActivity self;
     private User player;
     private DatabaseManager db;
+    private MediaPlayer mp;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -39,6 +41,16 @@ public class ConnectActivity extends AppCompatActivity {
     }
 
     public void showNewGameDialog() {
+        if(game.whoWon() == 1){
+            int wins = Integer.valueOf(player.getConnectHS()) + 1;
+            mp = MediaPlayer.create(getApplicationContext(), R.raw.win);
+            mp.start();
+            player.setConnectHS(String.valueOf(wins));
+            db.updateHS(player, "connectFour");
+        } else {
+            mp = MediaPlayer.create(getApplicationContext(), R.raw.loss);
+            mp.start();
+        }
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("WOOOO! That was fun!");
         alert.setMessage("Wanna play again?");
@@ -78,11 +90,6 @@ public class ConnectActivity extends AppCompatActivity {
 
     private class PlayDialog implements DialogInterface.OnClickListener {
         public void onClick(DialogInterface dialog, int id) {
-            if(game.whoWon() == 1){
-                int wins = Integer.valueOf(player.getConnectHS()) + 1;
-                player.setConnectHS(String.valueOf(wins));
-                db.updateHS(player, "connectFour");
-            }
             if (id == -1) /* YES button */ {
                 game.resetGame();
                 cfView.enableButtons(true);

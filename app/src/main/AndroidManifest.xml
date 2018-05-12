@@ -48,6 +48,7 @@
             android:label="Black Jack (21)" />
         <activity
             android:name=".LeaderBoardActivity"
+            android:configChanges="orientation"
             android:label="LeaderBoards"></activity>
     </application>
 

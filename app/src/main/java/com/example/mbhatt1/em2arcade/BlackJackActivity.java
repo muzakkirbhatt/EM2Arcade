@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,6 +55,7 @@ public class BlackJackActivity extends AppCompatActivity
     private TextView dealerWinsText;
     private TextView playerTotalText;
     private TextView dealerTotalText;
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -394,9 +396,13 @@ public class BlackJackActivity extends AppCompatActivity
     public void showGameDialog(String winner) {
         String title;
         if (winner.equalsIgnoreCase("dealer")) {
+            mp = MediaPlayer.create(getApplicationContext(), R.raw.loss);
+            mp.start();
             title = "TOUGH LUCK! YOU LOST";
             dealerWins++;
         } else if (winner.equalsIgnoreCase("player")) {
+            mp = MediaPlayer.create(getApplicationContext(), R.raw.win);
+            mp.start();
             title = "WOOO! YOU WIN";
             playerWins++;
             int wins = Integer.valueOf(player.getBlackjackHS()) + 1;

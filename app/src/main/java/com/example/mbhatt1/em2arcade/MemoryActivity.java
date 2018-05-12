@@ -3,6 +3,7 @@ package com.example.mbhatt1.em2arcade;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class MemoryActivity extends AppCompatActivity {
     private MemoryActivity self;
     private User player;
     private DatabaseManager db;
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,8 @@ public class MemoryActivity extends AppCompatActivity {
                                 int wins = Integer.valueOf(player.getMemoryHS()) + 1;
                                 player.setMemoryHS(String.valueOf(wins));
                                 db.updateHS(player, "memoryGame");
+                                mp = MediaPlayer.create(getApplicationContext(), R.raw.win);
+                                mp.start();
                                 buttonLayout.setText("  YOU WIN   ");
                                 new AlertDialog.Builder(self)
                                         .setTitle("YOU WON")

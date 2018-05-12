@@ -64,6 +64,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     public User loginUser(String username, String password, String type) {
+
         if (this.findUsername(username, type)) {
 
             String sqlQuery = "";
@@ -77,9 +78,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
             Cursor cursor = db.rawQuery(sqlQuery, null);
 
             User user = null;
-            if (cursor.moveToFirst())
+            if (cursor.moveToNext()) {
                 user = new User(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
-            if (user.getPassword().equals(password)) {
+            }
+            if (user != null && user.getPassword().equals(password)) {
                 return user;
             } else return null;
         } else return null;

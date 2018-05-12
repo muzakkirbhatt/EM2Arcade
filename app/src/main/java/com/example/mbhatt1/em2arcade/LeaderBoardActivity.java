@@ -1,5 +1,6 @@
 package com.example.mbhatt1.em2arcade;
 
+import android.content.res.Configuration;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +17,7 @@ import java.util.Collections;
 public class LeaderBoardActivity extends AppCompatActivity {
 
     private DatabaseManager db;
+    private String game;
     TableLayout tl;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -22,10 +25,17 @@ public class LeaderBoardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
+        Configuration config = getResources().getConfiguration();
         Bundle bundle = getIntent().getExtras();
-        String game = bundle.getString("game");
+        game = bundle.getString("game");
         db = new DatabaseManager(this);
         tl = findViewById(R.id.tableLayout);
+        this.populate();
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public void populate() {
         ArrayList<User> users = db.selectAll();
         if (users != null) {
             if (users.size() > 1) {
@@ -75,6 +85,25 @@ public class LeaderBoardActivity extends AppCompatActivity {
 
                 tl.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
             }
+        }
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(R.layout.activity_leaderboard_landscape);
+            tl = findViewById(R.id.tableLayout);
+            this.populate();
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.activity_leaderboard);
+            tl = findViewById(R.id.tableLayout);
+            this.populate();
         }
     }
 
